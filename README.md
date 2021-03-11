@@ -3,65 +3,104 @@
 
 ## API reference
 
-### register user
+___
+
+### **register user**
 POST : /api/register
 
+```
 request body : {
   email : string,
   username : string,
   password : string
 }
+```
 
+```
 response body:{
   usersession
 }
+```
 
-### login user
+___
+
+### **login user**
 POST : /api/login
 
+```
 request body :{
   username : string,
   password : string
 }
-
+```
+```
 response body:{
-  usersession
+  status : boolean
 }
+```
 
-### view posts
+___
+### **view posts**
 GET : /api/posts/{userId : string}
 
 query : page
 
+```
 response body:{
   object:POST
 }
+```
 
-### follow user
-POST : /api/follow
+___
+### **follow and unfollow user**
+PUT : /api/follow
+PUT : /api/unfollow
 
+```
 request body :{
   userId : string
 }
+```
 
-### like post
-POST : /api/like
+___
 
+### **follow list**
+GET : /api/user/follow
+
+___
+### **like and unlike post**
+PUT : /api/like
+PUT : /api/unlike
+```
 request body :{
   postId : string
 }
+```
 
-### reply post
-POST : /api/post
-
-request body :{
-  postId : string,
-  comment : string
-}
-
-### edit my post
-POST : /api/edit/{:postId}
+___
+### **edit my post**
+PATCH : /api/post/edit/{:postId}
+```
 request body {
-  newPost : string
+  newBody : string
 }
+```
 
+___
+
+### **post**
+POST : /api/post
+```
+request body :{
+  post : string,
+  postId? : string
+}
+```
+___
+### **delete my post**
+DELETE /api/post
+```
+request body :{
+  postId : string
+}
+```
