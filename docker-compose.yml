@@ -1,0 +1,12 @@
+version: "3.3"
+
+services:
+  dev:
+    container_name: tuttacatter_dev
+    build:
+      dockerfile: dockerfile
+      context: .
+    volumes: 
+      - .:/root/workspace
+    tty: true
+    command: /bin/sh
