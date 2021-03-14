@@ -1,9 +1,7 @@
-export class User {
+import { Model } from 'mongoose'
+export class UserModel implements Model.User.Property {
     id: UserId
-    info: UserInfoId
-    likePost: PostId[]
-
-    followers: UserId[]
-    follows: UserId[]
+    infoId: UserInfoId
+    credentialsId: UserCredentialsId
+    activityId: UserActivityId
 }
-

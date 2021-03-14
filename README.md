@@ -6,7 +6,7 @@
 ___
 
 ### **register user**
-POST : /api/register
+POST : /api/auth/register
 
 ```
 request body : {
@@ -25,7 +25,7 @@ response body:{
 ___
 
 ### **login user**
-POST : /api/login
+POST : /api/auth/login
 
 ```
 request body :{
@@ -41,9 +41,19 @@ response body:{
 
 ___
 ### **view posts**
-GET : /api/posts/{userId : string}
+GET : /api/view/posts/{userId : string}
 
 query : page
+
+```
+response body:{
+  object:POST[]
+}
+```
+
+___
+### **view posts**
+GET : /api/view/post/{postId}
 
 ```
 response body:{
@@ -51,10 +61,11 @@ response body:{
 }
 ```
 
+## user以下は認証必要
 ___
 ### **follow and unfollow user**
-PUT : /api/follow
-PUT : /api/unfollow
+PUT : /api/user/follow
+PUT : /api/user/unfollow
 
 ```
 request body :{
@@ -69,8 +80,8 @@ GET : /api/user/follow
 
 ___
 ### **like and unlike post**
-PUT : /api/like
-PUT : /api/unlike
+PUT : /api/user/like
+PUT : /api/user/unlike
 ```
 request body :{
   postId : string
@@ -78,18 +89,9 @@ request body :{
 ```
 
 ___
-### **edit my post**
-PATCH : /api/post/edit/{:postId}
-```
-request body {
-  newBody : string
-}
-```
 
-___
-
-### **post**
-POST : /api/post
+### **post mypost**
+POST : /api/user/post
 ```
 request body :{
   post : string,
@@ -98,9 +100,22 @@ request body :{
 ```
 ___
 ### **delete my post**
-DELETE /api/post
+DELETE /api/user/post
 ```
 request body :{
   postId : string
 }
 ```
+
+___
+### **edit my post**
+PATCH : /api/user/post/edit/{:postId}
+```
+request body {
+  newBody : string
+}
+```
+
+___
+### **delete my account**
+DELETE :/api/user

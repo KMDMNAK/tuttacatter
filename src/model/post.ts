@@ -1,6 +1,6 @@
-export class Post {
+export class PostModel implements Model.Post.Property {
     id: PostId
-    user: UserId
+    userId: UserId
 
     body: string
     lastUpdatedAt: Date

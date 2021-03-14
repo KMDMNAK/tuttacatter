@@ -1,9 +1,11 @@
 
-export class UserInfo {
+export class UserInfoModel implements Model.UserInfo.Property {
     id: UserInfoId
-    user: UserId
+    userId: UserId
+
+    account: string
+    password: string
 
     name: string
-    password: string
     email: string
 }
