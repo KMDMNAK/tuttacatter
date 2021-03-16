@@ -1,4 +1,3 @@
-import { Model } from 'mongoose'
 export class UserModel implements Model.User.Property {
     id: UserId
     infoId: UserInfoId
