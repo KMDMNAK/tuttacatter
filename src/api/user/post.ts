@@ -1,7 +1,6 @@
 import { RequestHandler, ParamsDictionary, Query } from 'express-serve-static-core'
-import { post } from '../../modules/user'
-import { ConfirmUserLocals } from '../../middleware/user'
-import { VerifyUserLocals } from '../../middleware/auth'
+import { UserModule } from '../../modules'
+import { VerifyUserLocals } from '../../middlewares/auth'
 
 export const PostHandler: RequestHandler<
     ParamsDictionary,
@@ -15,10 +14,10 @@ export const PostHandler: RequestHandler<
     try {
         if (!newBody) {
             res.status(400)
-            return res.send('No body is providen')
+            return res.send({ err: "No body is providen" })
         }
-        const postModel = await post(user, newBody)
-        return res.send(true)
+        const postModel = await UserModule.post(user, newBody)
+        return res.send({ res: postModel.data() })
     } catch (err) {
         next(err)
     }

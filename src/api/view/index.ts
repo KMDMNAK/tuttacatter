@@ -1,9 +1,11 @@
 import { Router } from 'express'
-import { ConfirmUserMiddlewareByQuery } from '../../middleware/user'
+import { ConfirmUserMiddlewareByQuery as BaseConfirmUserMiddlewareByQuery } from '../../middlewares/user'
 
-const router = Router()
-router.get('/post', ConfirmUserMiddlewareByQuery)
-router.get('/posts', ConfirmUserMiddlewareByQuery)
-router.get('/info', ConfirmUserMiddlewareByQuery)
-
-export default router
+const createRouter = (ConfirmUserMiddlewareByQuery: typeof BaseConfirmUserMiddlewareByQuery) => {
+    const router = Router()
+    router.get('/post', ConfirmUserMiddlewareByQuery)
+    router.get('/posts', ConfirmUserMiddlewareByQuery)
+    router.get('/info', ConfirmUserMiddlewareByQuery)
+    return router
+}
+export default createRouter

@@ -1,39 +1,74 @@
-import { Db, Collection, FilterQuery } from 'mongodb'
+import { Db, Collection, FilterQuery, OptionalId, ObjectId, WithId } from 'mongodb'
+import { createRandomId } from '../db/utils'
 
-export class BaseCollection<T>{
-    protected collectionName: string
-    protected collection: Collection<{ _id: string }>
-    private Model = BaseModel
-    createDocument(properties: T) {
-        return new this.Model(this, properties)
+export abstract class BaseCollection<T extends { _id: any, [key: string]: any }> {
+    collectionName: string | null = null
+    protected collection: Collection<T>
+    constructor(db: Db, collectionName: string) {
+        this.collectionName = collectionName
+        this.collection = db.collection<T>(this.collectionName)
     }
+    async createDocument(properties: Partial<T>) {
+        if (!properties._id) {
+            properties._id = createRandomId()
+        }
+        const doc = await this.collection.insertOne(properties as OptionalId<T>)
+        const ops = doc.ops[0]
+        const model = this.initializeModel(ops)
+        return model
+    }
+    protected abstract initializeModel(properties: WithId<T>): BaseModel<T>
+
     updateById(id: string, properties: T) {
-        return this.collection.updateOne({ _id: id }, { $set: properties })
+        return this.collection.updateOne({ _id: id } as T, { $set: properties })
     }
-    findOneById(id: string) {
-        return this.collection.findOne({ _id: id })
+    async findOneById(id: string) {
+        const doc = await this.collection.findOne({ _id: id } as T)
+        if (!doc) return null
+        const model = this.initializeModel(doc as WithId<T>)
+        return model
+    }
+    async delete(id: string) {
+        return this.collection.deleteOne({ _id: id } as T)
+    }
+
+    async findByFields(fields: Partial<T>) {
+        const doc = await this.collection.findOne(fields)
+        if (!doc) return null
+        return this.initializeModel(doc as WithId<T>)
     }
 }
 
-export class BaseModel<T>{
+export class BaseModel<T extends { _id: string, [key: string]: any }>{
     protected properties: T
-    protected collectionName: string
-    protected _id: string
+    protected collectionName: string | null = null
+    id: string
     protected collectionWrapper: BaseCollection<T>
 
     constructor(collectionWrapper: BaseCollection<T>, properties: T) {
         this.collectionWrapper = collectionWrapper
         this.properties = properties
+        this.collectionName = collectionWrapper.collectionName
+        this.id = this.properties._id
     }
     // TODO use partial
-    set(properties: T, options: { merge: boolean }) {
-        if (options.merge) {
-            Object.assign({}, this.properties, properties)
-            return
-        }
+    set(properties: T, options: {}) {
+        if (properties._id !== this.properties._id) throw Error('Violation fixed _id')
         this.properties = properties
+        return this.save()
+    }
+    update(properties: Partial<T>) {
+        Object.assign(this.properties, properties)
+        return this.save()
     }
     save() {
-        return this.collectionWrapper.updateById(this._id, this.properties)
+        if (!this.id) throw Error('No _id')
+        return this.collectionWrapper.updateById(this.id, this.properties)
+    }
+    data() {
+        return this.properties
+    }
+    delete() {
+        return this.collectionWrapper.delete(this.id)
     }
 }

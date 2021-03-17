@@ -1,4 +1,4 @@
-import { UserModel } from '../model/user'
+import { UserModel } from '../models/user'
 
 export const getPostById = async (postId: string) => {
     return {}
@@ -13,7 +13,7 @@ export const convertPostsToSend = async (posts: any[]) => {
 }
 
 
-export const notExistsUser = async (userId: string) => {
+export const existsAccount = async (userId: string) => {
     return false
 }
 

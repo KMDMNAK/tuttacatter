@@ -7,7 +7,10 @@ declare namespace API {
             password: string
             userInfo: {}
         }
-        type ResponseBody = {}
+        type ResponseBody = {
+            token?: string,
+            err?: string
+        }
     }
 
     namespace Login {
@@ -15,7 +18,7 @@ declare namespace API {
             account: string
             password: string
         }
-        type ResponseBody = {}
+        type ResponseBody = Register.ResponseBody
     }
 
     namespace View {
@@ -23,7 +26,7 @@ declare namespace API {
             type Query = {
                 postId: string,
             }
-            type ResponseBody = any
+            type ResponseBody = { body?: any, err?: string }
         }
         namespace Posts {
             type Query = {
@@ -46,7 +49,7 @@ declare namespace API {
             type RequestBody = {
                 newBody: string,
             }
-            type ResponseBody = any
+            type ResponseBody = { res?: Model.Post.Property, err?: string }
         }
         namespace Follow {
             type RequestBody = {
@@ -56,7 +59,7 @@ declare namespace API {
         }
         namespace Like {
             type RequestBody = {
-                userId: string,
+                postId: string,
             }
             type ResponseBody = {}
         }

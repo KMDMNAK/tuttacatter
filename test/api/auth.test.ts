@@ -1,14 +1,20 @@
 import supertest from 'supertest'
+import express from 'express'
 
-import App from 'tuttacatter/api'
+import Auth from 'tuttacatter/api/auth'
 
-const REGISTER_ROUTE = '/api/auth/register'
+import { db } from 'tuttacatter/db'
+
+const REGISTER_ROUTE = '/auth/register'
 describe('check auth api', () => {
-    let app: supertest.SuperTest<supertest.Test>
-    beforeEach(() => {
-        app = supertest(App)
+    beforeEach(async () => {
+        const originalDb = await db.dbP
+        await originalDb.dropDatabase()
     })
-    
+    const _app = express()
+    _app.use('/auth', Auth())
+    const app = supertest(_app)
+
     it('register user', async () => {
         const postData: API.Register.RequestBody = {
             account: "test_account",
@@ -16,7 +22,9 @@ describe('check auth api', () => {
             userInfo: {}
         }
         const res = await app.post(REGISTER_ROUTE).send(postData)
+        const body = res.body as API.Register.ResponseBody
         expect(res.status).toBe(200)
+        expect(body.token).not.toBeNull()
     })
 
     it('register user with depricated account', async () => {

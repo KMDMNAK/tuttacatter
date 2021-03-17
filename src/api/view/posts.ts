@@ -1,5 +1,5 @@
 import { RequestHandler, ParamsDictionary, Query } from 'express-serve-static-core'
-import { notExistsUser, getUserPosts, convertPostsToSend } from '../../modules/view'
+import { existsAccount, getUserPosts, convertPostsToSend } from '../../modules/view'
 
 const handler: RequestHandler<
     ParamsDictionary,

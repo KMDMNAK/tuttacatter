@@ -1,32 +1,35 @@
-type PostId = string
-type UserId = string
-type UserInfoId = string
-type UserCredentialsId = string
-type UserActivityId = string
+type PostId = any
+type UserId = any
+type UserInfoId = any
+type UserCredentialsId = any
+type UserActivityId = any
+type FollowId = any
+type LikeId = any
 
 
 declare namespace Model {
     namespace User {
         type Property = {
-            id: UserId,
-            infoId: UserInfoId,
-            credentialsId: UserCredentialsId
-            activityId: UserActivityId
+            _id: UserId,
+            infoId?: UserInfoId,
+            credentialsId?: UserCredentialsId
+            activityId?: UserActivityId
         }
     }
     namespace UserCredentials {
         type Property = {
-            id: UserCredentialsId
+            _id: UserCredentialsId
             userId: UserId
 
             account: string
             password: string
+
         }
     }
 
     namespace UserInfo {
         type Property = {
-            id: UserInfoId
+            _id: UserInfoId
             userId: UserId
 
             name?: string
@@ -37,7 +40,7 @@ declare namespace Model {
 
     namespace UserActivity {
         type Property = {
-            id: UserActivityId
+            _id: UserActivityId
             userId: UserId
 
             likePost: PostId[]
@@ -48,7 +51,7 @@ declare namespace Model {
 
     namespace Post {
         type Property = {
-            id: PostId
+            _id: PostId
             userId: UserId
 
             body: string
@@ -57,9 +60,20 @@ declare namespace Model {
 
             isComment: boolean
             targetPostId?: PostId
-            comments: PostId[]
-
-            likedUser: UserId[]
+        }
+    }
+    namespace Follow {
+        type Property = {
+            _id: FollowId
+            userId: UserId
+            targetUserId: UserId
+        }
+    }
+    namespace Like {
+        type Property = {
+            _id: LikeId
+            userId: UserId
+            postId: PostId
         }
     }
 }

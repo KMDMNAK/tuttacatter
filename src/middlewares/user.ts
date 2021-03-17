@@ -1,6 +1,6 @@
 import { RequestHandler, ParamsDictionary, Query } from 'express-serve-static-core'
 
-import { UserModel } from '../model/user'
+import { UserModel } from '../models/user'
 import { combineMiddlewares } from './utils'
 import { getUser } from '../modules/user'
 
