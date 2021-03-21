@@ -1,16 +1,6 @@
 import { BaseCollection, BaseModel } from '../db/model'
 
-export class UserInfoModel extends BaseModel<Model.UserInfo.Property> {
-    // id: UserInfoId
-    // userId: UserId
-
-    // account: string
-    // password: string
-
-    // name: string
-    // email: string
-}
-
+export class UserInfoModel extends BaseModel<Model.UserInfo.Property> { }
 
 export class UserInfoCollection extends BaseCollection<Model.UserInfo.Property>{
     collectionName = "UserInfo"

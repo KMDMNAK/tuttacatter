@@ -17,6 +17,10 @@ export const PostHandler: RequestHandler<
             return res.send({ err: "No body is providen" })
         }
         const postModel = await UserModule.post(user, newBody)
+        if(!postModel){
+            res.status(500)
+            return res.send({ err: "Internal Server Error" })
+        }
         return res.send({ res: postModel.data() })
     } catch (err) {
         next(err)

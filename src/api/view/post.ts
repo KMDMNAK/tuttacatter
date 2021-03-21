@@ -1,21 +1,22 @@
 import { RequestHandler, ParamsDictionary, Query } from 'express-serve-static-core'
-import { getPostById, convertPostToSend } from '../../modules/view'
+import { PostLocals } from '../../middlewares/post'
+import { ViewModule } from '../../modules'
 
 const handler: RequestHandler<
-    ParamsDictionary,
-    API.User.Post.ResponseBody,
+    API.View.Post.Params,
+    API.View.Post.ResponseBody,
     any,
-    API.User.Post.Query
+    any,
+    PostLocals
 > = async (req, res, next) => {
-    const { postId } = req.query
-    const post = await getPostById(postId)
+    const { post } = res.locals
     if (!post) {
         res.status(404)
-        return res.send(`Post does not exists.`)
+        return res.send({ err: `Post does not exists.` })
     }
     try {
-        const postToSend = await convertPostToSend(post)
-        res.send(postToSend)
+        const postToSend = await ViewModule.convertPostToSend(post)
+        return res.send(postToSend)
     } catch (err) {
         next(err)
     }

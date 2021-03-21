@@ -1,5 +1,5 @@
 import { RequestHandler, ParamsDictionary, Query } from 'express-serve-static-core'
-import AuthModule from '../modules/auth'
+import { AuthModule } from '../modules'
 import { UserModel } from '../models/user'
 
 export interface VerifyUserLocals {
@@ -14,7 +14,7 @@ export const VerifyMiddleware: RequestHandler<
     Partial<VerifyUserLocals>
 > = async (req, res, next) => {
     const token = req.header("auth-token");
-    if(!token){
+    if (!token) {
         res.status(400)
         return res.send('No token is providen.')
     }

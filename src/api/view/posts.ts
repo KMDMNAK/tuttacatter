@@ -1,19 +1,24 @@
 import { RequestHandler, ParamsDictionary, Query } from 'express-serve-static-core'
-import { existsAccount, getUserPosts, convertPostsToSend } from '../../modules/view'
+import { ConfirmUserLocals } from 'tuttacatter/middlewares/user'
+import { AuthModule, ViewModule } from 'tuttacatter/modules'
 
 const handler: RequestHandler<
     ParamsDictionary,
-    API.User.Posts.ResponseBody,
+    API.View.Posts.ResponseBody,
     any,
-    API.User.Posts.Query,
-    Middleware.UserConfirmLocals
+    any,
+    ConfirmUserLocals
 > = async (req, res, next) => {
-    const { user } = res.locals
+    const { targetUser } = res.locals
     const { page } = req.query
-    const posts = await getUserPosts(user, page || 0)
+    const posts = await ViewModule.getPosts(targetUser, page || 0)
+    if (!posts) {
+        res.status(404)
+        return res.send(null)
+    }
     try {
-        const postsToSend = await convertPostsToSend(posts)
-        res.send(postsToSend)
+        const sendData = { posts: await Promise.all(posts.map(post => ViewModule.convertPostToSend(post))) }
+        res.send(sendData)
     } catch (err) {
         next(err)
     }

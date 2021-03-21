@@ -7,10 +7,6 @@ import { UserCredentialsModel } from 'tuttacatter/models/usercredentials'
 
 import { BaseModuleProvider } from './provider'
 
-export const invalidPassword = (password: string): boolean => {
-    return false
-}
-
 type DecodedToken = { userId: string }
 class TokenHandler {
     UserCollection: UserCollectionType
@@ -49,6 +45,11 @@ export class AuthModuleProvider extends BaseModuleProvider {
             return tokenHandler
         })()
     }
+
+    invalidPassword(password: string): boolean {
+        return false
+    }
+    
     async existsAccount(account: string): Promise<boolean> {
         const collections = await this.collectionsP
         const credentials = await collections.UserCredentials.findByUserAccount(account)
@@ -80,12 +81,8 @@ export class AuthModuleProvider extends BaseModuleProvider {
         const infoDoc = await collections.UserInfo.createDocument({
             userId: userDoc.id
         })
-        const activityDoc = await collections.UserActivity.createDocument({
-            userId: userDoc.id
-        })
         const res = await userDoc.update({
             credentialsId: credentialsDoc.id,
-            activityId: activityDoc.id,
             infoId: infoDoc.id
         })
         return credentialsDoc

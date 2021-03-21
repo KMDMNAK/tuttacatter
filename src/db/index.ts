@@ -2,7 +2,6 @@ import { MongoClient, Db } from 'mongodb'
 
 import { UserCollection } from '../models/user'
 import { PostCollection } from '../models/post'
-import { UserActivityCollection } from '../models/useractivity'
 import { UserCredentialsCollection } from '../models/usercredentials'
 import { UserInfoCollection } from '../models/userinfo'
 import { FollowCollection } from '../models/follow'
@@ -13,7 +12,6 @@ import { DB_HOST, DB_NAME } from '../env'
 export interface Collections {
     User: UserCollection,
     Post: PostCollection,
-    UserActivity: UserActivityCollection,
     UserCredentials: UserCredentialsCollection,
     UserInfo: UserInfoCollection,
     Like: LikeCollection,
@@ -39,7 +37,6 @@ class Database {
         const db = await this.dbP
         return {
             User: new UserCollection(db, 'User'),
-            UserActivity: new UserActivityCollection(db, 'UserActivity'),
             UserCredentials: new UserCredentialsCollection(db, 'UserCredentials'),
             UserInfo: new UserInfoCollection(db, 'UserInfo'),
             Post: new PostCollection(db, 'Post'),

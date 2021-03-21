@@ -1,19 +1,6 @@
 import { BaseCollection, BaseModel } from '../db/model'
 
-export class PostModel extends BaseModel<Model.Post.Property> {
-    // id: PostId
-    // userId: UserId
-
-    // body: string
-    // lastUpdatedAt: Date
-    // publishedAt: Date
-
-    // isComment: boolean
-    // targetPostId?: PostId
-    // comments: PostId[]
-
-    // likedUser: UserId[]
-}
+export class PostModel extends BaseModel<Model.Post.Property> { }
 
 export class PostCollection extends BaseCollection<Model.Post.Property>{
     collectionName = "Post"

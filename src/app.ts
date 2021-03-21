@@ -3,19 +3,18 @@ import auth from './api/auth'
 import view from './api/view'
 import user from './api/user'
 
-import { ConfirmUserMiddlewareByQuery } from './middlewares/user'
-import { VerifyMiddleware } from './middlewares/auth'
+import { VerifyMiddleware } from './middlewares'
 
 import { connectDB } from './db'
 import { DB_HOST, DB_NAME, DB_PORT } from './env'
-import { createDatabaseMiddleware } from './middlewares/db'
+import { createDatabaseMiddleware } from './middlewares'
 
 const bootstrap = async () => {
     const db = await connectDB(DB_HOST, DB_NAME)
 
     const App = app(
         auth(),
-        view(ConfirmUserMiddlewareByQuery),
+        view(),
         user(VerifyMiddleware)
     )
 

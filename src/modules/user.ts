@@ -3,25 +3,16 @@ import { UserModel } from "tuttacatter/models/user"
 import { BaseModuleProvider } from './provider'
 
 export class UserModuleProvider extends BaseModuleProvider {
-    private async getUserActivities(users: { user: UserModel, targetUser: UserModel }) {
-        const { user, targetUser } = users
-        const collecions = await this.collectionsP
-        const userData = user.data()
-        const userActivity = await collecions.UserActivity.findOneById(userData.activityId)
-        if (!userActivity) throw Error('failed to initialize this user.')
-
-        const targetUserData = targetUser.data()
-        const targetUserActivity = await collecions.UserActivity.findOneById(targetUserData.activityId)
-        if (!targetUserActivity) throw Error('failed to initialize this user.')
-        return { userActivity, targetUserActivity }
-    }
-    getUser(user: string) {
-        if (false) return null
-        return {}
+    async getUser(account: string) {
+        const { User, UserCredentials } = await this.collectionsP
+        const credentials = await UserCredentials.findByFields({ account })
+        if (!credentials) return null
+        const { userId } = credentials?.data()
+        const user = await User.findOneById(userId)
+        return user
     }
     async followUser(users: { user: UserModel, targetUser: UserModel }) {
         // TODO Database Transaction
-        // const { userActivity, targetUserActivity } = await this.getUserActivities(users)
         const { user, targetUser } = users
         const { Follow } = await this.collectionsP
         const doc = await Follow.findByFields({ userId: user.id, targetUserId: targetUser.id })

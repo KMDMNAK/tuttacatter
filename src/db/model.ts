@@ -37,6 +37,11 @@ export abstract class BaseCollection<T extends { _id: any, [key: string]: any }>
         if (!doc) return null
         return this.initializeModel(doc as WithId<T>)
     }
+    async findManyByFields(fields: Partial<T>) {
+        const docs = await this.collection.find(fields).toArray()
+        if (!docs.length) return null
+        return docs.map(doc=>this.initializeModel(doc as WithId<T>))
+    }
 }
 
 export class BaseModel<T extends { _id: string, [key: string]: any }>{

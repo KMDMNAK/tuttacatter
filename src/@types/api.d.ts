@@ -23,7 +23,7 @@ declare namespace API {
 
     namespace View {
         namespace Post {
-            type Query = {
+            type Params = {
                 postId: string,
             }
             type ResponseBody = { body?: any, err?: string }

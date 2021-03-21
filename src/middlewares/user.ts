@@ -2,67 +2,85 @@ import { RequestHandler, ParamsDictionary, Query } from 'express-serve-static-co
 
 import { UserModel } from '../models/user'
 import { combineMiddlewares } from './utils'
-import { getUser } from '../modules/user'
+import { UserModule } from '../modules'
 
 export interface ConfirmUserLocals {
     targetUser: UserModel
 }
 
-const ConfirmUserMiddleware: RequestHandler<
-    ParamsDictionary,
-    any,
-    { userId?: string },
-    any,
-    { userId: string } & Partial<ConfirmUserLocals>
-> = async (req, res, next) => {
-    const userId = res.locals.userId
-    if (!userId) {
-        res.status(400)
-        return res.send(`User Id not providen.`)
-    }
-    const user = getUser(userId)
-    if (!user) {
-        res.status(404)
-        return res.send(`User does not exists.`)
-    }
+// const ConfirmUserMiddleware: RequestHandler<
+//     ParamsDictionary,
+//     any,
+//     { userId?: string },
+//     any,
+//     { userId: string } & Partial<ConfirmUserLocals>
+// > = async (req, res, next) => {
+//     const userId = res.locals.userId
+//     if (!userId) {
+//         res.status(400)
+//         return res.send(`User Id not providen.`)
+//     }
+//     const user = getUser(userId)
+//     if (!user) {
+//         res.status(404)
+//         return res.send(`User does not exists.`)
+//     }
 
-    res.locals.targetUser = user as any
-    return next()
-}
+//     res.locals.targetUser = user as any
+//     return next()
+// }
 
-const UserIdFromQueryMiddleware: RequestHandler<
-    ParamsDictionary,
+// const UserIdFromQueryMiddleware: RequestHandler<
+//     ParamsDictionary,
+//     any,
+//     any,
+//     { userId?: string },
+//     { userId: string }
+// > = async (req, res, next) => {
+//     const userId = req.query.userId
+//     if (!userId) {
+//         res.status(400)
+//         res.send('No UserId params providen.')
+//         return
+//     }
+//     res.locals.userId = userId
+//     return next()
+// }
+
+// const UserIdFromBodyMiddleware: RequestHandler<
+//     ParamsDictionary,
+//     any,
+//     { userId?: string },
+//     any,
+//     { userId: string }
+// > = async (req, res, next) => {
+//     const userId = req.body.userId
+//     if (!userId) {
+//         res.status(400)
+//         res.send('No UserId params providen.')
+//         return
+//     }
+//     res.locals.userId = userId
+//     return next()
+// }
+
+// export const ConfirmUserMiddlewareByBody = combineMiddlewares(UserIdFromBodyMiddleware, ConfirmUserMiddleware)
+// export const ConfirmUserMiddlewareByQuery = combineMiddlewares(UserIdFromQueryMiddleware, ConfirmUserMiddleware)
+
+
+export const ConfirmAccountMiddleware: RequestHandler<
+    { account: string },
     any,
     any,
-    { userId?: string },
-    { userId: string }
+    any,
+    Partial<ConfirmUserLocals>
 > = async (req, res, next) => {
-    const userId = req.query.userId
-    if (!userId) {
+    const account = req.params.account
+    const targetUser = await UserModule.getUser(account)
+    if (!targetUser) {
         res.status(400)
-        res.send('No UserId params providen.')
         return
     }
-    res.locals.userId = userId
-    return next()
+    res.locals.targetUser = targetUser
+    next()
 }
-
-const UserIdFromBodyMiddleware: RequestHandler<
-    ParamsDictionary,
-    any,
-    { userId?: string },
-    any,
-    { userId: string }
-> = async (req, res, next) => {
-    const userId = req.body.userId
-    if (!userId) {
-        res.status(400)
-        res.send('No UserId params providen.')
-        return
-    }
-    res.locals.userId = userId
-    return next()
-}
-
-export const ConfirmUserMiddlewareByBody = combineMiddlewares(UserIdFromBodyMiddleware, ConfirmUserMiddleware)
-export const ConfirmUserMiddlewareByQuery = combineMiddlewares(UserIdFromQueryMiddleware, ConfirmUserMiddleware)

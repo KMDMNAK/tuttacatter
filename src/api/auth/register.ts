@@ -1,5 +1,5 @@
 import { RequestHandler, ParamsDictionary, Query } from 'express-serve-static-core'
-import AuthModule, { invalidPassword } from '../../modules/auth'
+import { AuthModule } from '../../modules'
 
 const handler: RequestHandler<
     ParamsDictionary,
@@ -12,7 +12,7 @@ const handler: RequestHandler<
         res.status(400)
         return res.send({ err: `Account ${account} already exists.` })
     }
-    if (invalidPassword(password)) {
+    if (AuthModule.invalidPassword(password)) {
         res.status(400)
         return res.send({ err: `Invalid Password` })
     }

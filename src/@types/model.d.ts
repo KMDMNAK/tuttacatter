@@ -2,7 +2,6 @@ type PostId = any
 type UserId = any
 type UserInfoId = any
 type UserCredentialsId = any
-type UserActivityId = any
 type FollowId = any
 type LikeId = any
 
@@ -13,7 +12,6 @@ declare namespace Model {
             _id: UserId,
             infoId?: UserInfoId,
             credentialsId?: UserCredentialsId
-            activityId?: UserActivityId
         }
     }
     namespace UserCredentials {
@@ -23,7 +21,6 @@ declare namespace Model {
 
             account: string
             password: string
-
         }
     }
 
@@ -35,17 +32,6 @@ declare namespace Model {
             name?: string
             email?: string
             birth?: Date
-        }
-    }
-
-    namespace UserActivity {
-        type Property = {
-            _id: UserActivityId
-            userId: UserId
-
-            likePost: PostId[]
-            followers: UserId[]
-            follows: UserId[]
         }
     }
 
