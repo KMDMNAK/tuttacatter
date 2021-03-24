@@ -10,7 +10,7 @@ const createRouter = (
     PostMiddleware: typeof PostMiddlewareType
 ) => {
     const router = Router()
-    router.get('/post/:account', PostMiddleware, PostHandler)
+    router.get('/post/:account/:postId', PostMiddleware, PostHandler)
     router.get('/posts/:account', ConfirmAccountMiddleware, PostsHandler)
     router.get('/info/:account', ConfirmAccountMiddleware, InfoHandler)
     return router

@@ -16,7 +16,7 @@ const handler: RequestHandler<
     }
     try {
         const postToSend = await ViewModule.convertPostToSend(post)
-        return res.send(postToSend)
+        return res.send({ post: postToSend })
     } catch (err) {
         next(err)
     }

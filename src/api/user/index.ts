@@ -1,4 +1,4 @@
-import { Router } from 'express'
+import { Router, json } from 'express'
 
 import { VerifyMiddleware as BaseVerifyMiddleware } from '../../middlewares/auth'
 
@@ -12,6 +12,7 @@ const createRouter = (
     VerifyMiddleware: typeof BaseVerifyMiddleware
 ): Router => {
     const router = Router()
+    router.use(json())
     router.put('/follow', VerifyMiddleware, FollowUserHandler)
     router.put('/unfollow', VerifyMiddleware, UnfollowUserHandler)
 

@@ -1,3 +1,4 @@
+type ObjectId = any
 type PostId = any
 type UserId = any
 type UserInfoId = any
@@ -9,7 +10,7 @@ type LikeId = any
 declare namespace Model {
     namespace User {
         type Property = {
-            _id: UserId,
+            _id: ObjectId,
             infoId?: UserInfoId,
             credentialsId?: UserCredentialsId
         }

@@ -2,6 +2,7 @@
 import { Collections } from '../db'
 import { UserCollection as UserCollectionType } from '../models/user'
 import { sign, verify } from 'jsonwebtoken'
+import { ObjectId } from 'mongodb'
 import { SECRET_TOKEN_KEY } from '../env'
 import { UserCredentialsModel } from 'tuttacatter/models/usercredentials'
 
@@ -9,47 +10,30 @@ import { BaseModuleProvider } from './provider'
 
 type DecodedToken = { userId: string }
 class TokenHandler {
-    UserCollection: UserCollectionType
-    constructor(UserCollection: UserCollectionType) {
-        this.UserCollection = UserCollection
-    }
     getToken(credentials: UserCredentialsModel) {
         const { userId } = credentials.data()
         if (!userId) throw Error('No user id provided.')
         const token = sign({ userId: userId } as DecodedToken, SECRET_TOKEN_KEY);
         return token
     }
-    async getUser(token: string) {
-        try {
-            const { userId } = verify(token, SECRET_TOKEN_KEY) as DecodedToken
-            const user = await this.UserCollection.findOneById(userId)
-            if (!user) {
-                console.debug(`${userId} does not exist.`)
-                return null
-            }
-            return user
-        } catch (e) {
-            return null
-        }
+    async getUserId(token: string) {
+        const { userId } = verify(token, SECRET_TOKEN_KEY) as DecodedToken
+        return userId
     }
 }
 
 export class AuthModuleProvider extends BaseModuleProvider {
-    tokenHandlerP: Promise<TokenHandler>
+    tokenHandler: TokenHandler
     constructor(collections: Promise<Collections>) {
         super(collections)
         const collectionsP = this.collectionsP
-        this.tokenHandlerP = (async () => {
-            const collections = await collectionsP
-            const tokenHandler = new TokenHandler(collections.User)
-            return tokenHandler
-        })()
+        this.tokenHandler = new TokenHandler()
     }
 
     invalidPassword(password: string): boolean {
         return false
     }
-    
+
     async existsAccount(account: string): Promise<boolean> {
         const collections = await this.collectionsP
         const credentials = await collections.UserCredentials.findByUserAccount(account)
@@ -89,13 +73,17 @@ export class AuthModuleProvider extends BaseModuleProvider {
     }
 
     async loginUser(credentials: UserCredentialsModel) {
-        const tokenHandler = await this.tokenHandlerP
-        return tokenHandler.getToken(credentials)
+        return this.tokenHandler.getToken(credentials)
     }
 
     async verifyAccessToken(token: string) {
-        const tokenHandler = await this.tokenHandlerP
-        const user = await tokenHandler.getUser(token)
+        const { User } = await this.collectionsP
+        const userId = await this.tokenHandler.getUserId(token)
+        const user = await User.findOneById(userId)
+        if (!user) {
+            console.debug(`${userId} does not exist.`)
+            return null
+        }
         return user
     }
 }

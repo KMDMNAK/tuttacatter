@@ -1,9 +1,9 @@
 import { Db, Collection, FilterQuery, OptionalId, ObjectId, WithId } from 'mongodb'
 import { createRandomId } from '../db/utils'
 
-export abstract class BaseCollection<T extends { _id: any, [key: string]: any }> {
+export abstract class BaseCollection<T extends { _id: ObjectId, [key: string]: any }> {
     collectionName: string | null = null
-    protected collection: Collection<T>
+    collection: Collection<T>
     constructor(db: Db, collectionName: string) {
         this.collectionName = collectionName
         this.collection = db.collection<T>(this.collectionName)
@@ -19,16 +19,16 @@ export abstract class BaseCollection<T extends { _id: any, [key: string]: any }>
     }
     protected abstract initializeModel(properties: WithId<T>): BaseModel<T>
 
-    updateById(id: string, properties: T) {
+    updateById(id: ObjectId, properties: T) {
         return this.collection.updateOne({ _id: id } as T, { $set: properties })
     }
-    async findOneById(id: string) {
+    async findOneById(id: ObjectId | string) {
         const doc = await this.collection.findOne({ _id: id } as T)
         if (!doc) return null
         const model = this.initializeModel(doc as WithId<T>)
         return model
     }
-    async delete(id: string) {
+    async delete(id: ObjectId) {
         return this.collection.deleteOne({ _id: id } as T)
     }
 
@@ -40,14 +40,14 @@ export abstract class BaseCollection<T extends { _id: any, [key: string]: any }>
     async findManyByFields(fields: Partial<T>) {
         const docs = await this.collection.find(fields).toArray()
         if (!docs.length) return null
-        return docs.map(doc=>this.initializeModel(doc as WithId<T>))
+        return docs.map(doc => this.initializeModel(doc as WithId<T>))
     }
 }
 
-export class BaseModel<T extends { _id: string, [key: string]: any }>{
+export class BaseModel<T extends { _id: ObjectId, [key: string]: any }>{
     protected properties: T
     protected collectionName: string | null = null
-    id: string
+    id: ObjectId
     protected collectionWrapper: BaseCollection<T>
 
     constructor(collectionWrapper: BaseCollection<T>, properties: T) {

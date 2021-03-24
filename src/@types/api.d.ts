@@ -1,6 +1,11 @@
 
 declare namespace API {
-
+    type PostItem = {
+        body: string
+        lastUpdatedAt: Date
+        publishedAt: Date
+        account: string
+    }
     namespace Register {
         type RequestBody = {
             account: string
@@ -24,16 +29,17 @@ declare namespace API {
     namespace View {
         namespace Post {
             type Params = {
+                account: string
                 postId: string,
             }
-            type ResponseBody = { body?: any, err?: string }
+            type ResponseBody = { post?: PostItem, err?: string }
         }
         namespace Posts {
             type Query = {
                 page: number
                 userId: string
             }
-            type ResponseBody = any
+            type ResponseBody =  { posts?: PostItem[], err?: string }
         }
 
         namespace Info {
@@ -41,6 +47,12 @@ declare namespace API {
                 userId: string
             }
             type ResponseBody = any
+        }
+        namespace Timeline {
+            type Params = {
+                limit: number
+            }
+            type ResponseBody = Posts.ResponseBody
         }
     }
 
