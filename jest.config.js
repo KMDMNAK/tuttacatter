@@ -7,5 +7,7 @@ module.exports = {
     moduleNameMapper: {
         "tuttacatter(.*)$": "<rootDir>/src/$1"
     },
-    testEnvironment: 'node'
+    testEnvironment: 'node',
+    setupFiles: ['<rootDir>/test/env-setup.ts'],
+
 }

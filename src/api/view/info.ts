@@ -1,16 +1,18 @@
 import { RequestHandler, ParamsDictionary, Query } from 'express-serve-static-core'
-import { convertUserInfoToSend } from '../../modules/view'
+import { ViewModule } from '../../modules'
+
+import { ConfirmUserLocals } from '../../middlewares'
 
 const ViewUserInfoHandler: RequestHandler<
     ParamsDictionary,
-    API.User.Info.ResponseBody,
+    API.View.Info.ResponseBody,
     any,
-    API.User.Info.Query,
-    Middleware.UserConfirmLocals
+    API.View.Info.Query,
+    ConfirmUserLocals
 > = async (req, res, next) => {
-    const { user } = res.locals
+    const { targetUser } = res.locals
     try {
-        const infoToSend = await convertUserInfoToSend(user)
+        const infoToSend = await ViewModule.convertUserInfoToSend(targetUser)
         res.send(infoToSend)
     } catch (err) {
         next(err)

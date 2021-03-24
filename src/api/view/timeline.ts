@@ -2,15 +2,14 @@ import { RequestHandler, ParamsDictionary, Query } from 'express-serve-static-co
 import { ConfirmUserLocals } from 'tuttacatter/middlewares/user'
 import { AuthModule, ViewModule } from 'tuttacatter/modules'
 
-const handler: RequestHandler<
+const TimelineHandler: RequestHandler<
     ParamsDictionary,
-    API.View.Posts.ResponseBody,
+    API.View.Timeline.ResponseBody,
     any,
-    any,
-    ConfirmUserLocals
+    API.View.Timeline.Params,
+    any
 > = async (req, res, next) => {
-    const { targetUser } = res.locals
-    const { page } = req.query
+    const { limit } = req.query
     const posts = await ViewModule.getPosts(targetUser, page || 0)
     if (!posts) {
         res.status(404)
@@ -24,4 +23,4 @@ const handler: RequestHandler<
     }
 }
 
-export default handler
+export default TimelineHandler

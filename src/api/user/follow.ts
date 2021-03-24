@@ -1,7 +1,7 @@
 import { RequestHandler, ParamsDictionary, Query } from 'express-serve-static-core'
-import { followUser, unfollowUser } from '../../modules/user'
-import { ConfirmUserLocals } from '../../middleware/user'
-import { VerifyUserLocals } from '../../middleware/auth'
+import { UserModule } from '../../modules'
+import { ConfirmUserLocals } from '../../middlewares/user'
+import { VerifyUserLocals } from '../../middlewares/auth'
 
 export const FollowUserHandler: RequestHandler<
     ParamsDictionary,
@@ -12,7 +12,7 @@ export const FollowUserHandler: RequestHandler<
 > = async (req, res, next) => {
     const { targetUser, user } = res.locals
     try {
-        await followUser({ user, targetUser })
+        await UserModule.followUser({ user, targetUser })
         return res.send(true)
     } catch (err) {
         next(err)
@@ -29,7 +29,7 @@ export const UnfollowUserHandler: RequestHandler<
 > = async (req, res, next) => {
     const { targetUser, user } = res.locals
     try {
-        await unfollowUser({ user, targetUser })
+        await UserModule.unfollowUser({ user, targetUser })
         return res.send(true)
     } catch (err) {
         next(err)

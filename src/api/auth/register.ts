@@ -1,5 +1,5 @@
 import { RequestHandler, ParamsDictionary, Query } from 'express-serve-static-core'
-import { alreadyExists, invalidPassword, registerUser } from '../../modules/auth'
+import { AuthModule } from '../../modules'
 
 const handler: RequestHandler<
     ParamsDictionary,
@@ -8,17 +8,18 @@ const handler: RequestHandler<
     Query
 > = async (req, res, next) => {
     const { account, password } = req.body
-    if (alreadyExists(account)) {
+    if (await AuthModule.existsAccount(account)) {
         res.status(400)
-        return res.send(`Account ${account} already exists.`)
+        return res.send({ err: `Account ${account} already exists.` })
     }
-    if (invalidPassword(password)) {
+    if (AuthModule.invalidPassword(password)) {
         res.status(400)
-        return res.send(`Invalid Password`)
+        return res.send({ err: `Invalid Password` })
     }
     try {
-        const a = await registerUser(account, password)
-        return res.send(true)
+        const credentials = await AuthModule.registerUser(account, password)
+        const token = await AuthModule.loginUser(credentials)
+        return res.send({ token })
     } catch (err) {
         next(err)
     }

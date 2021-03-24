@@ -1,8 +1,7 @@
 $container_name = $args[0]
-$text = "{`"containerName`":`"${container_name}`"}"
-Write-Output $text
+$containerinfo = "{`"containerName`":`"${container_name}`"}"
 $container_hex = ""
-foreach ($i in $text.toCharArray()) {
+foreach ($i in $containerinfo.toCharArray()) {
     $hex = "{0:x1}" -f [Int][Char]$i
     $container_hex += $hex.ToString()
 }

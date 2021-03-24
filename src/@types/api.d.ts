@@ -1,13 +1,21 @@
 
 declare namespace API {
-
+    type PostItem = {
+        body: string
+        lastUpdatedAt: Date
+        publishedAt: Date
+        account: string
+    }
     namespace Register {
         type RequestBody = {
             account: string
             password: string
             userInfo: {}
         }
-        type ResponseBody = {}
+        type ResponseBody = {
+            token?: string,
+            err?: string
+        }
     }
 
     namespace Login {
@@ -15,22 +23,23 @@ declare namespace API {
             account: string
             password: string
         }
-        type ResponseBody = {}
+        type ResponseBody = Register.ResponseBody
     }
 
     namespace View {
         namespace Post {
-            type Query = {
+            type Params = {
+                account: string
                 postId: string,
             }
-            type ResponseBody = any
+            type ResponseBody = { post?: PostItem, err?: string }
         }
         namespace Posts {
             type Query = {
                 page: number
                 userId: string
             }
-            type ResponseBody = any
+            type ResponseBody =  { posts?: PostItem[], err?: string }
         }
 
         namespace Info {
@@ -39,6 +48,12 @@ declare namespace API {
             }
             type ResponseBody = any
         }
+        namespace Timeline {
+            type Params = {
+                limit: number
+            }
+            type ResponseBody = Posts.ResponseBody
+        }
     }
 
     namespace User {
@@ -46,7 +61,7 @@ declare namespace API {
             type RequestBody = {
                 newBody: string,
             }
-            type ResponseBody = any
+            type ResponseBody = { res?: Model.Post.Property, err?: string }
         }
         namespace Follow {
             type RequestBody = {
@@ -56,7 +71,7 @@ declare namespace API {
         }
         namespace Like {
             type RequestBody = {
-                userId: string,
+                postId: string,
             }
             type ResponseBody = {}
         }

@@ -1,18 +1,5 @@
 import { connectDB } from 'tuttacatter/db'
 import { Db } from 'mongodb'
-class C1 extends Schema {
-    test1: string
-    test2: string
-    test3: number
-    constructor() {
-        super({
-            type: String,
-            ip: String,
-            details: String,
-            reason: String
-        })
-    }
-}
 
 describe('', () => {
     let db: Db

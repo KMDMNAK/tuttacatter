@@ -1,6 +1,6 @@
 import { RequestHandler, ParamsDictionary, Query } from 'express-serve-static-core'
-import { invalidAccessToken } from '../modules/auth'
-import { UserModel } from '../model/user'
+import { AuthModule } from '../modules'
+import { UserModel } from '../models/user'
 
 export interface VerifyUserLocals {
     user: UserModel
@@ -12,9 +12,13 @@ export const VerifyMiddleware: RequestHandler<
     any,
     Query,
     Partial<VerifyUserLocals>
-> = (req, res, next) => {
-    const token = {}
-    const user = invalidAccessToken(token)
+> = async (req, res, next) => {
+    const token = req.header("auth-token");
+    if (!token) {
+        res.status(400)
+        return res.send('No token is providen.')
+    }
+    const user = await AuthModule.verifyAccessToken(token)
     if (!user) {
         res.status(400)
         return res.send(`Invalid Access Token.`)
