@@ -2,7 +2,7 @@
 module.exports = {
   title: 'tuttacatter',
   tagline: 'The tagline of my site',
-  url: 'https://kmdmnak.github.io./',
+  url: 'https://kmdmnak.github.io',
   baseUrl: '/tuttacatter/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
