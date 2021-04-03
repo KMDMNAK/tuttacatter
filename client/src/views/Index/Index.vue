@@ -36,7 +36,7 @@ export default class Index extends Vue {}
   position: absolute;
 }
 .frame1 {
-  position: relative;
+  /* position: relative; */
   /* width: 100%;
   height: 100%; */
   margin-bottom: 20px;
@@ -46,7 +46,7 @@ export default class Index extends Vue {}
 /* Let’s Get Started. */
 .letsgetstarted {
   position: absolute;
-  width: 381px;
+  width: 450px;
   height: 59px;
   left: 157px;
   top: 88px;

@@ -1,0 +1,33 @@
+version: "3.3"
+volumes:
+  database:
+  docs_node_modules:
+    
+services:
+  dev:
+    container_name: tuttacatter_dev
+    build:
+      dockerfile: Dockerfile
+      context: ./server
+    working_dir: /root/workspace
+    volumes: 
+      - .:/root/workspace
+    tty: true
+    command: /bin/bash
+    network_mode: host
+    
+  docs:
+    container_name: tuttacatter_docs
+    build:
+      dockerfile: Dockerfile
+      context: ./docs
+    working_dir: /root/workspace
+    volumes: 
+      - ./docs:/root/workspace
+      - docs_node_modules:/root/workspace/node_modules
+      - ~/.ssh:/root/.ssh
+      - ~/.gitconfig:/root/.gitconfig
+    tty: true
+    command: /bin/bash
+    network_mode: host
+    

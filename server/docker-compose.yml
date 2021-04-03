@@ -1,8 +1,8 @@
 version: "3.3"
 volumes:
-  node_modules:
   database:
-    
+  node_modules:
+
 services:
   dev:
     container_name: tuttacatter_dev
@@ -10,9 +10,10 @@ services:
       dockerfile: Dockerfile
       context: .
     working_dir: /root/workspace
-    volumes: 
+    volumes:
       - .:/root/workspace
       - node_modules:/root/workspace/node_modules
+      - ../@types:/root/@types
     tty: true
     command: /bin/bash
 
@@ -20,6 +21,6 @@ services:
     container_name: tuttacatter_db
     build: 
       dockerfile: Dockerfile
-      context: ./database
+      context: ../database
     volumes: 
       - database:/data/db
