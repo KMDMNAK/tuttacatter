@@ -1,22 +1,35 @@
 <template>
-  <v-form>
-    <v-text-field v-model="account" label="Account" required></v-text-field>
-    <v-text-field
-      v-model="password"
-      label="Password"
-      type="password"
-      required
-    ></v-text-field>
-  </v-form>
+  <div>
+    <v-form @submit="submit">
+      <v-text-field v-model="account" label="Account" required></v-text-field>
+      <v-text-field
+        v-model="password"
+        label="Password"
+        type="password"
+        required
+      ></v-text-field>
+    </v-form>
+    <v-btn @click="submit">Sign in</v-btn>
+  </div>
 </template>
 
 <script>
+import Provider from "@/api";
+
 export default {
   data() {
     return {
       account: null,
       password: null,
     };
+  },
+  methods: {
+    async submit() {
+      const api = await Provider.API.login({
+        account: this.account,
+        password: this.password,
+      });
+    },
   },
 };
 </script>

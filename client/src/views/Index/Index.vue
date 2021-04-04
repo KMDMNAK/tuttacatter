@@ -35,10 +35,11 @@ export default class Index extends Vue {}
   top: 227px;
   position: absolute;
 }
+
 .frame1 {
-  /* position: relative; */
-  /* width: 100%;
-  height: 100%; */
+  position: relative;
+  /* width: 100vh;
+  height: 100vh; */
   margin-bottom: 20px;
   background: #ffffff;
 }
