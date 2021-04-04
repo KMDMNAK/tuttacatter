@@ -2,21 +2,41 @@ version: "3.3"
 volumes:
   database:
   docs_node_modules:
+  server_node_modules:
+  client_node_modules:
   
 services:
+  client:
+    container_name: tuttacatter_client_dev
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./client
+    working_dir: /root/workspace
+    volumes:
+      - ./client:/root/workspace
+      - ./@types:/root/workspace/src/@types
+      - server_node_modules:/root/workspace/node_modules
+    tty: true
+    command: /bin/bash
+    ports:
+      - 8080:8080
+
   server:
     container_name: tuttacatter_server_dev
     build:
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
       context: ./server
     working_dir: /root/workspace
     volumes: 
       - ./server:/root/workspace
       - ./@types:/root/workspace/src/@types
+      - client_node_modules:/root/workspace/node_modules
+    environment:
+      - SECRET_TOKEN_KEY="afeonaoenfpaeifne;ifnaowenf;ieaonfewa;oinfewo;gb"
+    depends_on: 
+      - database
     tty: true
     command: /bin/bash
-    ports:
-      - 3000:3000
 
   database:
     container_name: tuttacatter_database_dev

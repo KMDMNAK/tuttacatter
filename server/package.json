@@ -35,7 +35,7 @@
   "scripts": {
     "tsc": "tsc",
     "eslint": "eslint",
-    "start": "node out/index.js",
+    "start": "DEBUG=express:* node out/index.js",
     "build": "webpack --config webpack.config.js"
   }
 }
