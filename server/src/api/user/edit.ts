@@ -30,8 +30,9 @@ export const EditPostHandler: RequestHandler<
             res.status(400)
             return res.send({ err: 'Invalid Operation' })
         }
-        await UserModule.editPost(post, newBody)
-        return res.send({ body: newBody })
+        const postItem = await UserModule.editPost(post, newBody)
+        const body: API.PostItem = Object.assign(postItem, { account: String(user.id) })
+        return res.send({ post: body })
     } catch (err) {
         next(err)
     }

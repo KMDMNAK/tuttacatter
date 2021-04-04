@@ -15,7 +15,7 @@ const handler: RequestHandler<
         return res.send({ err: `Post does not exists.` })
     }
     try {
-        const postToSend = await ViewModule.convertPostToSend(post)
+        const postToSend = await ViewModule.convertPostToSend(post.data())
         return res.send({ post: postToSend })
     } catch (err) {
         next(err)

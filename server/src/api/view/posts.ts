@@ -14,7 +14,7 @@ const handler: RequestHandler<
     const posts = await ViewModule.getPosts(targetUser, page || 0)
     if (!posts) {
         res.status(404)
-        return res.send(null)
+        return res.send({ posts: [] })
     }
     try {
         const sendData = { posts: await Promise.all(posts.map(post => ViewModule.convertPostToSend(post))) }

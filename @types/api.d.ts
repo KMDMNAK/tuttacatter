@@ -39,7 +39,7 @@ declare namespace API {
                 page: number
                 userId: string
             }
-            type ResponseBody =  { posts?: PostItem[], err?: string }
+            type ResponseBody = { posts?: PostItem[], err?: string }
         }
 
         namespace Info {
@@ -50,7 +50,8 @@ declare namespace API {
         }
         namespace Timeline {
             type Params = {
-                limit: number
+                limit: number,
+                page: number
             }
             type ResponseBody = Posts.ResponseBody
         }

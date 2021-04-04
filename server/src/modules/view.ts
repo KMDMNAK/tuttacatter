@@ -18,9 +18,9 @@ export class ViewModuleProvider extends BaseModuleProvider {
         return doc
     }
 
-    async convertPostToSend(post: PostModel): Promise<API.PostItem> {
-        const { body, lastUpdatedAt, publishedAt, userId } = post.data()
-        const account = await this.getUserAccount(userId)
+    async convertPostToSend(post: Model.Post.Property): Promise<API.PostItem> {
+        const { body, lastUpdatedAt, publishedAt } = post
+        const account = await this.getUserAccount(String(post.userId))
         if (!account) throw Error('No Account')
         if (!lastUpdatedAt) throw Error('Not lastUpdatedAt')
         return { body, lastUpdatedAt, publishedAt, account }

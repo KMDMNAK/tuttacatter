@@ -1,0 +1,25 @@
+version: "3.3"
+volumes:
+  database:
+  docs_node_modules:
+  
+services:
+  server:
+    container_name: tuttacatter_server_dev
+    build:
+      dockerfile: Dockerfile
+      context: ./server
+    working_dir: /root/workspace
+    volumes: 
+      - ./server:/root/workspace
+      - ./@types:/root/workspace/src/@types
+    tty: true
+    command: /bin/bash
+    ports:
+      - 3000:3000
+
+  database:
+    container_name: tuttacatter_database_dev
+    build:
+      dockerfile: Dockerfile
+      context: ./database

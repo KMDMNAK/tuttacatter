@@ -50,8 +50,10 @@ export class UserModuleProvider extends BaseModuleProvider {
         if (!post) return null
         return post
     }
-    async editPost(post: PostModel, newBody: string) {
-        return post.update({ body: newBody })
+    async editPost(post: PostModel, newBody: string): Promise<Omit<API.PostItem, 'account'>> {
+        await post.update({ body: newBody })
+        const { body, lastUpdatedAt, publishedAt } = post.data()
+        return { body, lastUpdatedAt, publishedAt }
     }
     async post(user: UserModel, body: string, targetPostId?: string): Promise<PostModel> {
         const { Post } = await this.collectionsP

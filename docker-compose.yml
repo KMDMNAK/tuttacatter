@@ -4,16 +4,14 @@ volumes:
   docs_node_modules:
     
 services:
-  dev:
-    container_name: tuttacatter_dev
+  server:
+    container_name: tuttacatter_server
     build:
       dockerfile: Dockerfile
       context: ./server
     working_dir: /root/workspace
-    volumes: 
-      - .:/root/workspace
     tty: true
-    command: /bin/bash
+    command: yarn start
     network_mode: host
     
   docs:

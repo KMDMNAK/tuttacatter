@@ -3,7 +3,7 @@ import auth from './api/auth'
 import view from './api/view'
 import user from './api/user'
 
-import { VerifyMiddleware } from './middlewares'
+import { VerifyMiddleware, ConfirmAccountMiddleware, PostMiddleware } from './middlewares'
 
 import { connectDB } from './db'
 import { DB_HOST, DB_NAME, DB_PORT } from './env'
@@ -14,7 +14,7 @@ const bootstrap = async () => {
 
     const App = app(
         auth(),
-        view(),
+        view(ConfirmAccountMiddleware, PostMiddleware),
         user(VerifyMiddleware)
     )
 
