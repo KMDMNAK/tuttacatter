@@ -1,16 +1,30 @@
 module.exports = {
+  learn: [
+    {
+      type: 'category',
+      label: '学習',
+      items: [
+        'learning/introduction',
+        'learning/loadmap',
+        'learning/environment'
+      ]
+    },
+  ],
   docs: [
     {
       type: 'category',
-      label: 'Docusaurus Tutorial',
+      label: '概要',
       items: [
-        'getting-started',
-        'create-a-page',
-        'create-a-document',
-        'create-a-blog-post',
-        'markdown-features',
-        'thank-you',
-      ],
+        'abstract/about'
+      ]
     },
-  ],
-};
+    {
+      type: 'category',
+      label: 'API Reference',
+      items: [
+        'api/auth',
+        'api/user',
+        'api/view']
+    }
+  ]
+}

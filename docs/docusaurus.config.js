@@ -10,6 +10,7 @@ module.exports = {
   organizationName: 'KMDMNAK', // Usually your GitHub org/user name.
   projectName: 'tuttacatter', // Usually your repo name.
   themeConfig: {
+    hideableSidebar: true,
     navbar: {
       title: 'Tuttacatter',
       logo: {
@@ -18,12 +19,12 @@ module.exports = {
       },
       items: [
         {
-          to: 'docs/',
+          to: '/',
           activeBasePath: 'docs',
           label: 'Docs',
           position: 'left',
         },
-        {to: 'blog', label: 'Blog', position: 'left'},
+        { activeBasePath: 'docs',to: 'learning/introduction', label: 'Learn', position: 'left' },
         {
           href: 'https://github.com/KMDMNAK/tuttacatter',
           label: 'GitHub',
@@ -83,6 +84,7 @@ module.exports = {
       {
         docs: {
           sidebarPath: require.resolve('./src/sidebars.js'),
+          routeBasePath: '/',
           // Please change this to your repo.
           editUrl:
             'https://github.com/facebook/docusaurus/edit/master/website/',
@@ -97,6 +99,6 @@ module.exports = {
           customCss: require.resolve('./src/css/custom.css'),
         },
       },
-    ],
+    ]
   ],
 };

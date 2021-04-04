@@ -3,12 +3,11 @@
   "version": "0.0.0",
   "private": true,
   "description": "Documentation for tuttacatter and development training.This is published on github pages.",
-  "main": "index.js",
   "author": "KMDMNAK",
   "license": "MIT",
   "scripts": {
     "docusaurus": "docusaurus",
-    "start": "docusaurus start",
+    "start": "docusaurus start --poll",
     "build": "docusaurus build",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
@@ -19,11 +18,13 @@
   },
   "dependencies": {
     "@docusaurus/core": "2.0.0-alpha.72",
+    "@docusaurus/plugin-client-redirects": "^2.0.0-alpha.72",
     "@docusaurus/preset-classic": "2.0.0-alpha.72",
     "@mdx-js/react": "^1.6.21",
     "clsx": "^1.1.1",
     "react": "^17.0.1",
-    "react-dom": "^17.0.1"
+    "react-dom": "^17.0.1",
+    "react-sidebar": "^3.0.2"
   },
   "browserslist": {
     "production": [
