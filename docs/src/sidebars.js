@@ -2,13 +2,32 @@ module.exports = {
   learn: [
     {
       type: 'category',
-      label: '学習',
+      label: '準備',
       items: [
-        'learning/introduction',
-        'learning/loadmap',
-        'learning/environment'
+        'learning/prepare/introduction',
+        'learning/prepare/loadmap',
+        'learning/prepare/commandline',
+        'learning/prepare/environment',
+        'learning/prepare/github',
+        'learning/tasks/git'
       ]
-    },
+    },{
+      type: 'category',
+      label: 'HTML・CSS・JavaScript',
+      items: [
+        'learning/html/html',
+        'learning/html/css',
+        'learning/html/javascript',
+        'learning/tasks/htmlcssjs'
+      ]
+    },{
+      type : 'category',
+      label: 'JavaScript',
+      items:[
+        'learning/js/nodejs',
+        'learning/tasks/algorithm',
+      ]
+    }
   ],
   docs: [
     {

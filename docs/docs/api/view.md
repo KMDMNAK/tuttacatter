@@ -1,7 +1,6 @@
 ---
 title: view
 id: "view"
-sidebar-title: "view"
 ---
 
 ___
