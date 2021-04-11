@@ -21,7 +21,7 @@ export const PostHandler: RequestHandler<
             res.status(500)
             return res.send({ err: "Internal Server Error" })
         }
-        return res.send({ res: postModel.data() })
+        return res.send({ post: postModel.data() })
     } catch (err) {
         next(err)
     }

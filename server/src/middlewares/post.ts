@@ -1,5 +1,5 @@
 import { RequestHandler, ParamsDictionary, Query } from 'express-serve-static-core'
-import { ObjectId } from 'mongodb'
+import { ObjectID, ObjectId } from 'mongodb'
 import { PostModel } from '../models/post'
 
 import { ViewModule } from '../modules'
@@ -21,7 +21,8 @@ export const PostMiddleware: RequestHandler<
         res.status(400)
         return res.send('No postId is providen.')
     }
-    const post = await ViewModule.getPost(new ObjectId(postId))
+    console.debug('postId', { postId })
+    const post = await ViewModule.getPost(new ObjectID(postId))
     if (!post) {
         res.status(404)
         return res.send('No post exists.')

@@ -38,12 +38,13 @@ describe('check auth api', () => {
         res = await app.post(POST_ROUTE).set('auth-token', bodyRegister.token).send({ newBody: 'TEST_BODY' } as API.User.Post.RequestBody)
         expect(res.status).toBe(200)
         const bodyPost = res.body as API.User.Post.ResponseBody
-        expect(bodyPost.res?.body).toBe('TEST_BODY')
+        console.debug(bodyPost.post)
+        expect(bodyPost.post.body).toBe('TEST_BODY')
 
-        res = await app.get(`${VIEW_POST_ROUTE}/test/${bodyPost.res?._id}`).set('auth-token', bodyRegister.token)
+        res = await app.get(`${VIEW_POST_ROUTE}/test/${bodyPost.post?._id}`).set('auth-token', bodyRegister.token)
         const bodyViewPost = res.body as API.View.Post.ResponseBody
         expect(res.status).toBe(200)
-        expect(bodyViewPost.body).toBe("TEST_BODY")
+        expect(bodyViewPost.post.body).toBe("TEST_BODY")
     })
 
     it.skip('like other user', async () => {

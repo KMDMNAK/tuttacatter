@@ -1,23 +1,49 @@
 
 import { Collections } from '../db'
-import { UserCollection as UserCollectionType } from '../models/user'
 import { sign, verify } from 'jsonwebtoken'
-import { ObjectId } from 'mongodb'
-import { SECRET_TOKEN_KEY } from '../env'
 import { UserCredentialsModel } from 'tuttacatter/models/usercredentials'
 
 import { BaseModuleProvider } from './provider'
+
+import { generateKeyPairSync, RSAKeyPairKeyObjectOptions, KeyObject } from 'crypto'
+
+
+class KeyProvider {
+    private static key: KeyObject
+    private static generateKey() {
+        const { privateKey } = generateKeyPairSync("rsa", {
+            modulusLength: 2048,
+            publicKeyEncoding: {
+                type: 'spki',
+                format: 'pem'
+            },
+            privateKeyEncoding: {
+                format: 'pem',
+                type: 'pkcs1'
+            }
+        } as RSAKeyPairKeyObjectOptions)
+        return privateKey
+    }
+    static get() {
+        if (!this.key) {
+            this.key = this.generateKey()
+        }
+        return this.key
+    }
+}
 
 type DecodedToken = { userId: string }
 class TokenHandler {
     getToken(credentials: UserCredentialsModel) {
         const { userId } = credentials.data()
         if (!userId) throw Error('No user id provided.')
-        const token = sign({ userId: userId } as DecodedToken, SECRET_TOKEN_KEY);
+        const secretKey = String(KeyProvider.get())
+        const token = sign({ userId: userId } as DecodedToken, secretKey, { algorithm: 'RS256' });
         return token
     }
     async getUserId(token: string) {
-        const { userId } = verify(token, SECRET_TOKEN_KEY) as DecodedToken
+        const secretKey = String(KeyProvider.get())
+        const { userId } = verify(token, secretKey, { algorithms: ['RS256'] }) as DecodedToken
         return userId
     }
 }
@@ -26,7 +52,6 @@ export class AuthModuleProvider extends BaseModuleProvider {
     tokenHandler: TokenHandler
     constructor(collections: Promise<Collections>) {
         super(collections)
-        const collectionsP = this.collectionsP
         this.tokenHandler = new TokenHandler()
     }
 

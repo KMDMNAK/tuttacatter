@@ -6,8 +6,9 @@ import user from './api/user'
 import { VerifyMiddleware, ConfirmAccountMiddleware, PostMiddleware } from './middlewares'
 
 import { connectDB } from './db'
-import { DB_HOST, DB_NAME, DB_PORT } from './env'
+import { DB_HOST, DB_NAME, SERVER_PORT } from './env'
 import { createDatabaseMiddleware } from './middlewares'
+
 
 const bootstrap = async () => {
     const db = await connectDB(DB_HOST, DB_NAME)
@@ -18,8 +19,8 @@ const bootstrap = async () => {
         user(VerifyMiddleware)
     )
 
-    App.listen(DB_PORT, () => {
-        console.debug(`Server starts at ${DB_PORT}`)
+    App.listen(SERVER_PORT, () => {
+        console.debug(`Server starts at ${SERVER_PORT}`)
     })
 }
 

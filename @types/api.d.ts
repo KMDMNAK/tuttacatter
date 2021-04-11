@@ -62,7 +62,7 @@ declare namespace API {
             type RequestBody = {
                 newBody: string,
             }
-            type ResponseBody = { res?: Model.Post.Property, err?: string }
+            type ResponseBody = { post?: Model.Post.Property, err?: string }
         }
         namespace Follow {
             type RequestBody = {

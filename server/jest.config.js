@@ -5,9 +5,11 @@ module.exports = {
         "src"
     ],
     moduleNameMapper: {
-        "tuttacatter(.*)$": "<rootDir>/src/$1"
+        "tuttacatter/(.*)$": "<rootDir>/src/$1"
     },
+    modulePaths: [
+        "<rootDir>/src"
+    ],
     testEnvironment: 'node',
-    setupFiles: ['<rootDir>/test/env-setup.ts'],
-
+    setupFiles: ['<rootDir>/test/env-setup.ts']
 }
