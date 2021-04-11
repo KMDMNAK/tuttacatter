@@ -1,31 +1,23 @@
 version: "3.3"
-volumes:
-  database:
-  docs_node_modules:
     
 services:
   server:
     container_name: tuttacatter_server
     build:
-      dockerfile: Dockerfile
-      context: ./server
-    working_dir: /root/workspace
-    tty: true
+      dockerfile: ./server/Dockerfile
+      context: .
+    environment:
+      - DB_HOST=database
+      - DB_NAME=product
+      - SERVER_PORT=8000
+    ports:
+      - "8000:8000"
     command: yarn start
-    network_mode: host
-    
-  docs:
-    container_name: tuttacatter_docs
-    build:
-      dockerfile: Dockerfile
-      context: ./docs
-    working_dir: /root/workspace
-    volumes: 
-      - ./docs:/root/workspace
-      - docs_node_modules:/root/workspace/node_modules
-      - ~/.ssh:/root/.ssh
-      - ~/.gitconfig:/root/.gitconfig
-    tty: true
-    command: /bin/bash
-    network_mode: host
+
+  database:
+      container_name: tuttacatter_database
+      build:
+        dockerfile: Dockerfile
+        context: ./database
+
     

@@ -31,8 +31,6 @@ services:
       - ./server:/root/workspace
       - ./@types:/root/workspace/src/@types
       - client_node_modules:/root/workspace/node_modules
-    environment:
-      - SECRET_TOKEN_KEY="afeonaoenfpaeifne;ifnaowenf;ieaonfewa;oinfewo;gb"
     depends_on: 
       - database
     tty: true
