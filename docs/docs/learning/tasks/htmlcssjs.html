@@ -1,0 +1,31 @@
+<body>
+    <div>
+        <ul id="ul"></ul>
+    </div>
+    <input type="text" id="input" class="fixed" />
+
+    <script>
+        function addList(text) {
+            const ul = document.getElementById('ul')
+            const list = document.createElement('li')
+            list.innerText = text
+            ul.appendChild(list)
+        }
+        document.getElementById("input").onkeypress = (e) => {
+            const key = e.keyCode || e.charCode || 0;
+            if (key == 13) {
+                console.debug(e.target.value)
+                addList(e.target.value)
+                e.target.value = ""
+                e.preventDefault();
+            }
+        }
+    </script>
+    <style>
+        .fixed {
+            text-align: center;
+            bottom: 0;
+            position: fixed;
+        }
+    </style>
+</body>

@@ -24,8 +24,17 @@ module.exports = {
       type : 'category',
       label: 'JavaScript',
       items:[
+        'learning/js/js',
         'learning/js/nodejs',
         'learning/tasks/algorithm',
+      ]
+    },
+    {
+      type: 'category',
+      label:'フレームワーク',
+      items:[
+        'learning/framework/index',
+        'learning/framework/frontend'
       ]
     }
   ],
