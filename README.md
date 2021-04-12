@@ -3,4 +3,4 @@
 
 
 # github pages
-https://github.io/kmdmnak/tuttacatter
+https://kmdmnak.github.io/tuttacatter/
