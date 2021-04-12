@@ -1,7 +1,19 @@
 ---
-id: htmlcssjs
+id: task-htmlcssjs
 title: 課題：HTML・CSS・JavaScript
 ---
+
+
+### [課題名]hover
+
+:::danger 課題
+マウスをホバーしたら青くなるnode(width:500px,height:500px)をhtmlとCSSで実装せよ
+:::
+
+### [課題名]dom
+:::danger 課題
+ボタンをクリックしたら赤くなるnode(width:500px,height:500px)をhtmlとjavascriptで実装せよ
+
 
 ### [課題名]alert
 

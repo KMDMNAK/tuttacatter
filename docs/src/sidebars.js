@@ -9,7 +9,16 @@ module.exports = {
         'learning/prepare/commandline',
         'learning/prepare/environment',
         'learning/prepare/github',
-        'learning/tasks/git'
+        'learning/tasks/about'
+      ]
+    },{
+      type: 'category',
+      label: 'Git',
+      items: [
+        'learning/git/intro',
+        'learning/git/task-intro',
+        'learning/git/branch',
+        'learning/git/task-branch'
       ]
     },{
       type: 'category',
@@ -18,7 +27,7 @@ module.exports = {
         'learning/html/html',
         'learning/html/css',
         'learning/html/javascript',
-        'learning/tasks/htmlcssjs'
+        'learning/html/task-htmlcssjs'
       ]
     },{
       type : 'category',
@@ -26,7 +35,8 @@ module.exports = {
       items:[
         'learning/js/js',
         'learning/js/nodejs',
-        'learning/tasks/algorithm',
+        'learning/js/task-node',
+        'learning/js/task-algorithm',
       ]
     },
     {

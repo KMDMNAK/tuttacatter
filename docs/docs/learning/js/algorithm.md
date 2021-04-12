@@ -1,5 +1,5 @@
 ---
-id: algorithm
+id: task-algorithm
 title: 課題：Algorithm
 ---
 
