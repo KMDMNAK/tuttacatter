@@ -8,7 +8,9 @@ Google Chromeを開いて、F12を押すと、開発者用ツール画面が開�
 その中のコンソール画面で、clientサイドのJavaScriptを実行することができる。
 :::
 
-[参考記事](https://developer.mozilla.org/ja/docs/Learn/Getting_started_with_the_web/JavaScript_basics)
+
+**下記記事を読む**
+https://developer.mozilla.org/ja/docs/Learn/Getting_started_with_the_web/JavaScript_basics
 
 ### Check Points
 

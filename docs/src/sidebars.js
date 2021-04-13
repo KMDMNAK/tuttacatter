@@ -11,7 +11,7 @@ module.exports = {
         'learning/prepare/github',
         'learning/tasks/about'
       ]
-    },{
+    }, {
       type: 'category',
       label: 'Git',
       items: [
@@ -20,7 +20,7 @@ module.exports = {
         'learning/git/branch',
         'learning/git/task-branch'
       ]
-    },{
+    }, {
       type: 'category',
       label: 'HTML・CSS・JavaScript',
       items: [
@@ -29,20 +29,24 @@ module.exports = {
         'learning/html/javascript',
         'learning/html/task-htmlcssjs'
       ]
-    },{
-      type : 'category',
+    }, {
+      type: 'category',
       label: 'JavaScript',
-      items:[
+      items: [
         'learning/js/js',
         'learning/js/nodejs',
         'learning/js/task-node',
         'learning/js/task-algorithm',
+        'learning/js/promise',
+        'learning/js/task-promise',
+        'learning/js/fetch',
+        'learning/js/task-fetch',
       ]
     },
     {
       type: 'category',
-      label:'フレームワーク',
-      items:[
+      label: 'フレームワーク',
+      items: [
         'learning/framework/index',
         'learning/framework/frontend'
       ]
@@ -60,6 +64,7 @@ module.exports = {
       type: 'category',
       label: 'API Reference',
       items: [
+        'api/about',
         'api/auth',
         'api/user',
         'api/view']

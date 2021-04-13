@@ -4,7 +4,7 @@ title: Nodejs
 ---
 
 
-### nodejsとは
+### Nodejsとは
 最初にJavaScriptというのはブラウザで実行されるものと書きましたが、  
 JavaScriptの普及が進むにつれて、それをサーバーサイドでも使ってみようという流れが出てきます。  
 そこで誕生したのがJavaScriptのランタイム環境であるNode.jsです。  

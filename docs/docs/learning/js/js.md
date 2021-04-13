@@ -1,6 +1,6 @@
 ---
 id: js
-title: JavaScript
+title: JavaScriptとは
 ---
 
 JavaScriptとは、プロトタイプベースのプログラミング言語の一つである。  
@@ -24,3 +24,16 @@ JavaScriptとは、プロトタイプベースのプログラミング言語の�
 <br />
 どこまで想定する必要があるのかはケースバイケースであろうが、クライントの環境によって動作が変わることがあることを考慮する必要があるだろう。  
 
+## 言語としてのJavaScript
+
+まずはプログラミング言語共通のif文やfor文などの使い方を見てみましょう。  
+下記ページを簡単に参照して、言語としてのjavascriptの文法を簡単に参照してみてください。  
+
+https://jsprimer.net/
+
+
+### check points
+- for文、if文、while文
+- 文字列に対する標準メソッド(ex. split , replace など)
+- 配列に対する標準メソッド(ex. **map**,**filter**,reduceなど)
+- 型のキャスト(ex. 文字列から数値、数値から論理値、undefined,nullから論理値など)

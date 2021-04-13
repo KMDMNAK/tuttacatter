@@ -4,7 +4,8 @@ title: CSSの基礎
 ---
 
 
-[参考記事](https://developer.mozilla.org/ja/docs/Learn/Getting_started_with_the_web/CSS_basics)
+**下記記事を読む**
+https://developer.mozilla.org/ja/docs/Learn/Getting_started_with_the_web/CSS_basics
 
 ### Check Points
 

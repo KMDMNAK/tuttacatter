@@ -3,6 +3,12 @@ id: task-algorithm
 title: 課題：Algorithm
 ---
 
+:::tip
+アプリケーション開発においてアルゴリズムの知識は必須ではない。
+難しかったら飛ばしてよい。
+:::
+
+
 ### [課題名]sorting
 
 :::danger 課題
