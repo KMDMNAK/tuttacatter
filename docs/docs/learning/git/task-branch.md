@@ -1,6 +1,6 @@
 ---
 id: task-branch
-title: 課題：gitのマージ
+title: 課題：ブランチのマージ
 ---
 
 
