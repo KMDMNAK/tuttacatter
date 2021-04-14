@@ -4,18 +4,26 @@ volumes:
   docs_node_modules:
 
 services:
-  docs:
-    container_name: tuttacatter_docs
+  dev:
+    container_name: tuttacatter_docs_dev
     build:
-      dockerfile: Dockerfile
-      context: ./docs
-    working_dir: /root/workspace
+      dockerfile: Dockerfile.docs
+      context: .
+    image: tuttacatter_docs
+    working_dir: /root/workspace/docs
     volumes: 
-      - ./docs:/root/workspace
-      - docs_node_modules:/root/workspace/node_modules
+      - ./docs:/root/workspace/docs
+      - docs_node_modules:/root/workspace/docs/node_modules
+    tty: true
+    command: yarn start
+    network_mode: host
+
+  deploy:
+    image: tuttacatter_docs
+    volumes: 
+      - docs_node_modules:/root/workspace/docs/node_modules
       - ~/.ssh:/root/.ssh
       - ~/.gitconfig:/root/.gitconfig
-      # - git:/root/workspace/.git
-    tty: true
-    command: /bin/bash
-    network_mode: host
+    working_dir: /root/workspace/docs
+    command: yarn deploy
+
