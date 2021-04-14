@@ -48,7 +48,8 @@ module.exports = {
       label: 'フレームワーク',
       items: [
         'learning/framework/index',
-        'learning/framework/frontend'
+        'learning/framework/frontend',
+        'learning/framework/vue'
       ]
     }
   ],
