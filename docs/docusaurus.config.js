@@ -24,7 +24,8 @@ module.exports = {
           label: 'Docs',
           position: 'left',
         },
-        { activeBasePath: 'docs',to: 'learning/prepare/introduction', label: 'Learn', position: 'left' },
+        { activeBasePath: 'docs', to: 'learning/prepare/introduction', label: 'Learn', position: 'left' },
+        { activeBasePath: 'docs', to: 'group/index', label: 'Group', position: 'left' },
         {
           href: 'https://github.com/KMDMNAK/tuttacatter',
           label: 'GitHub',
