@@ -22,6 +22,7 @@ services:
     image: tuttacatter_docs
     volumes: 
       - docs_node_modules:/root/workspace/docs/node_modules
+      - ./docs:/root/workspace/docs
       - ~/.ssh:/root/.ssh
       - ~/.gitconfig:/root/.gitconfig
     working_dir: /root/workspace/docs
