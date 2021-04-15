@@ -40,7 +40,7 @@ module.exports = {
         'learning/js/promise',
         'learning/js/task-promise',
         'learning/js/fetch',
-        'learning/js/task-fetch',
+        'learning/js/task-fetch'
       ]
     },
     {
@@ -49,7 +49,17 @@ module.exports = {
       items: [
         'learning/framework/index',
         'learning/framework/frontend',
-        'learning/framework/vue'
+        'learning/framework/vue',
+        'learning/framework/task-startup-vue'
+      ]
+    }
+  ],
+  group: [
+    {
+      type: 'category',
+      label: 'グループ開発',
+      items: [
+        'group/index'
       ]
     }
   ],
